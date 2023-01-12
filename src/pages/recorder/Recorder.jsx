@@ -1,19 +1,19 @@
-import styled from "styled-components";
-import { RecorderBlock } from "./RecorderBlockStyled";
-import { useStopwatch } from "react-timer-hook";
-import React, { useState } from "react";
-import AudioAnalyser from "react-audio-analyser";
+import styled from 'styled-components';
+import { RecorderBlock } from './RecorderBlockStyled';
+import { useStopwatch } from 'react-timer-hook';
+import React, { useState } from 'react';
+import AudioAnalyser from 'react-audio-analyser';
 import {
   FaMicrophone,
   FaPause,
   FaStop,
   FaMicrophoneSlash,
-} from "react-icons/fa";
-import { Fade } from "react-reveal";
+} from 'react-icons/fa';
+import { Fade } from 'react-reveal';
 
 function Recorder() {
   const [stat, setStat] = useState();
-  const [audiotype, setAudiotype] = useState("audio/wav");
+  // const [audiotype] = useState('audio/wav');
   const [audiosrc, setAudiosrc] = useState();
 
   const { seconds, minutes, hours, isRunning, start, pause, reset } =
@@ -23,60 +23,59 @@ function Recorder() {
   const secondTime = seconds < 10 ? `0${seconds}` : `${seconds}`;
   const minuteTime = minutes < 10 ? `0${minutes}` : `${minutes}`;
 
-  function controlAudio(status) {
-    setStat(status);
+  function controlAudio(value) {
+    setStat(value);
   }
 
-  function changeScheme(e) {
-    setAudiotype(e.target.value);
-  }
+  // function changeScheme(e) {
+  //   setAudiotype(e.target.value);
+  // }
 
   function recordTimeOut(e) {
     const inputSec = e.target.value;
-    controlAudio("recording");
+    controlAudio('recording');
     start();
     setTimeout(() => {
       reset();
-      controlAudio("inactive");
+      controlAudio('inactive');
     }, inputSec);
   }
 
   const audioProps = {
     status: stat,
-    audioType: audiotype,
+    audioType: 'audio/wav',
     audioSrc: audiosrc,
     timeslice: 1000,
     stopCallback: (e) => {
       setAudiosrc(window.URL.createObjectURL(e));
-      sessionStorage.setItem("musicSrc", URL.createObjectURL(e));
+      // sessionStorage.setItem('musicSrc', URL.createObjectURL(e));
     },
-
     width: 200,
     height: 50,
-    backgroundColor: "#cedbf6",
+    backgroundColor: '#cedbf6',
   };
 
   return (
     <Wrapper>
       <RecorderBlock>
         <Fade right>
-          <div className="mainInnerBox">
-            <div className="recordInnerBox">
-              <div className="timer_wrapper">
+          <div className='mainInnerBox'>
+            <div className='recordInnerBox'>
+              <div className='timer_wrapper'>
                 <h1>Audio Recorder</h1>
                 <div>Recording Time</div>
-                <div className="timer_num_elem">
+                <div className='timer_num_elem'>
                   <span>{hourTime}</span>:<span>{minuteTime}</span>:
                   <span>{secondTime}</span>
                 </div>
-                <div className="timer_progress_elem">
+                <div className='timer_progress_elem'>
                   {isRunning ? (
-                    <div className="recording">
+                    <div className='recording'>
                       <FaMicrophone />
                       Recording in progress
                     </div>
                   ) : (
-                    <div className="recording_stop">
+                    <div className='recording_stop'>
                       <FaMicrophoneSlash />
                       Recording stopped
                     </div>
@@ -84,46 +83,46 @@ function Recorder() {
                 </div>
               </div>
 
-              <AudioAnalyser {...audioProps} className="audio_recorder_wrapper">
-                <div className="btn_box">
+              <AudioAnalyser {...audioProps} className='audio_recorder_wrapper'>
+                <div className='btn_box'>
                   <button
-                    className="btn_start"
+                    className='btn_start'
                     onClick={() => {
-                      controlAudio("recording");
+                      controlAudio('recording');
                       start();
                       recordTimeOut();
                     }}
-                    onMouseDown={() => {
-                      setTimer(true);
-                    }}
+                    // onMouseDown={() => {
+                    //   setTimer(true);
+                    // }}
                   >
                     <FaMicrophone />
                   </button>
                   <button
-                    className="btn_pause"
+                    className='btn_pause'
                     onClick={() => {
-                      controlAudio("paused");
+                      controlAudio('paused');
                       pause();
                     }}
                   >
                     <FaPause />
                   </button>
                   <button
-                    className="btn_stop"
+                    className='btn_stop'
                     onClick={() => {
-                      controlAudio("inactive");
+                      controlAudio('inactive');
                       reset();
                     }}
                   >
                     <FaStop />
                   </button>
                 </div>
-                <div className="time_selector">
+                <div className='time_selector'>
                   <select onChange={(e) => recordTimeOut(e)}>
-                    <option value="null">Select timer option</option>
-                    <option value="31000">Set Maximum 30 Sec</option>
-                    <option value="61000">Set Maximum 1 min</option>
-                    <option value="301000">Set Maximum 5 min</option>
+                    <option value='null'>Select timer option</option>
+                    <option value='31000'>Set Maximum 30 Sec</option>
+                    <option value='61000'>Set Maximum 1 min</option>
+                    <option value='301000'>Set Maximum 5 min</option>
                   </select>
                 </div>
               </AudioAnalyser>
