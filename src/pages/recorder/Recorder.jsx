@@ -13,7 +13,6 @@ import { Fade } from 'react-reveal';
 
 function Recorder() {
   const [stat, setStat] = useState();
-  // const [audiotype] = useState('audio/wav');
   const [audiosrc, setAudiosrc] = useState();
 
   const { seconds, minutes, hours, isRunning, start, pause, reset } =
@@ -26,10 +25,6 @@ function Recorder() {
   function controlAudio(value) {
     setStat(value);
   }
-
-  // function changeScheme(e) {
-  //   setAudiotype(e.target.value);
-  // }
 
   function recordTimeOut(e) {
     const inputSec = e.target.value;
@@ -48,7 +43,6 @@ function Recorder() {
     timeslice: 1000,
     stopCallback: (e) => {
       setAudiosrc(window.URL.createObjectURL(e));
-      // sessionStorage.setItem('musicSrc', URL.createObjectURL(e));
     },
     width: 200,
     height: 50,
@@ -92,9 +86,6 @@ function Recorder() {
                       start();
                       recordTimeOut();
                     }}
-                    // onMouseDown={() => {
-                    //   setTimer(true);
-                    // }}
                   >
                     <FaMicrophone />
                   </button>
