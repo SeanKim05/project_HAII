@@ -34,7 +34,7 @@
 <br/>
 
 
-## 언어
+## 기술스택
 
 - JavaScript
 - React.js
